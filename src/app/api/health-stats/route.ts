@@ -3,27 +3,30 @@ import prisma from "@/lib/prisma";
 
 export async function GET(req: NextRequest) {
     const sessionId = req.nextUrl.searchParams.get("sessionId");
-    if (!sessionId) {
-        return NextResponse.json({ error: "Missing sessionId" }, { status: 400 });
+    const userId = req.nextUrl.searchParams.get("userId");
+
+    let targetUserId: string | null = null;
+
+    if (userId) {
+        targetUserId = userId;
+    } else if (sessionId) {
+        const user = await prisma.user.findUnique({ where: { sessionId } });
+        targetUserId = user?.id || null;
+    }
+
+    if (!targetUserId) {
+        return NextResponse.json({
+            totalConsultations: 0,
+            conditionBreakdown: {},
+            severityBreakdown: {},
+            lastConsultation: null,
+            consultations: [],
+        });
     }
 
     try {
-        const user = await prisma.user.findUnique({
-            where: { sessionId },
-        });
-
-        if (!user) {
-            return NextResponse.json({
-                totalConsultations: 0,
-                conditionBreakdown: {},
-                severityBreakdown: {},
-                lastConsultation: null,
-                consultations: [],
-            });
-        }
-
         const consultations = await prisma.consultation.findMany({
-            where: { userId: user.id, status: "completed" },
+            where: { userId: targetUserId, status: "completed" },
             orderBy: { createdAt: "desc" },
             select: {
                 id: true,
@@ -34,7 +37,6 @@ export async function GET(req: NextRequest) {
             },
         });
 
-        // Build condition breakdown
         const conditionBreakdown: Record<string, number> = {};
         const severityBreakdown: Record<string, number> = { low: 0, medium: 0, high: 0 };
 

@@ -4,25 +4,26 @@ import prisma from "@/lib/prisma";
 export async function GET(req: NextRequest) {
     try {
         const sessionId = req.nextUrl.searchParams.get("sessionId");
+        const userId = req.nextUrl.searchParams.get("userId");
 
-        if (!sessionId) {
-            return NextResponse.json(
-                { error: "sessionId is required" },
-                { status: 400 }
-            );
+        let targetUserId: string | null = null;
+
+        if (userId) {
+            // Authenticated user — use userId directly
+            targetUserId = userId;
+        } else if (sessionId) {
+            // Anonymous user — lookup by sessionId
+            const user = await prisma.user.findUnique({ where: { sessionId } });
+            targetUserId = user?.id || null;
         }
 
-        const user = await prisma.user.findUnique({
-            where: { sessionId },
-        });
-
-        if (!user) {
+        if (!targetUserId) {
             return NextResponse.json({ consultations: [] });
         }
 
         const consultations = await prisma.consultation.findMany({
             where: {
-                userId: user.id,
+                userId: targetUserId,
                 status: "completed",
             },
             orderBy: { createdAt: "desc" },

@@ -2,8 +2,10 @@ import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { ServiceWorkerRegister } from "@/components/ServiceWorkerRegister";
 import AuthProvider from "@/components/AuthProvider";
+import { I18nProvider } from "@/components/I18nProvider";
 import UserNav from "@/components/UserNav";
 import ThemeToggle from "@/components/ThemeToggle";
+import LanguageToggle from "@/components/LanguageToggle";
 import { SpeedInsights } from '@vercel/speed-insights/next';
 
 export const metadata: Metadata = {
@@ -46,49 +48,52 @@ export default function RootLayout({
         <link rel="apple-touch-icon" href="/icons/icon-192.png" />
       </head>
       <body className="antialiased min-h-screen">
-        <AuthProvider>
-          {/* Navbar */}
-          <nav className="fixed top-0 left-0 right-0 z-50 glass-strong">
-            <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
-              <a href="/" className="flex items-center gap-2 group">
-                <span className="text-2xl group-hover:animate-float">🦷</span>
-                <span className="text-xl font-bold gradient-text">DentAI</span>
-              </a>
-              <div className="flex items-center gap-1 sm:gap-2">
-                <a
-                  href="/consult"
-                  className="px-3 py-1.5 sm:px-4 sm:py-2 text-xs sm:text-sm font-medium text-slate-300 hover:text-white hover:bg-slate-800/50 rounded-lg transition-all"
-                >
-                  Konsultasi
+        <I18nProvider>
+          <AuthProvider>
+            {/* Navbar */}
+            <nav className="fixed top-0 left-0 right-0 z-50 glass-strong">
+              <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+                <a href="/" className="flex items-center gap-2 group">
+                  <span className="text-2xl group-hover:animate-float">🦷</span>
+                  <span className="text-xl font-bold gradient-text">DentAI</span>
                 </a>
-                <a
-                  href="/dashboard"
-                  className="px-3 py-1.5 sm:px-4 sm:py-2 text-xs sm:text-sm font-medium text-slate-300 hover:text-white hover:bg-slate-800/50 rounded-lg transition-all hidden sm:block"
-                >
-                  Dashboard
-                </a>
-                <a
-                  href="/history"
-                  className="px-3 py-1.5 sm:px-4 sm:py-2 text-xs sm:text-sm font-medium text-slate-300 hover:text-white hover:bg-slate-800/50 rounded-lg transition-all"
-                >
-                  Riwayat
-                </a>
-                <a
-                  href="/about"
-                  className="px-3 py-1.5 sm:px-4 sm:py-2 text-xs sm:text-sm font-medium text-slate-300 hover:text-white hover:bg-slate-800/50 rounded-lg transition-all hidden sm:block"
-                >
-                  Tentang
-                </a>
-                <ThemeToggle />
-                <UserNav />
+                <div className="flex items-center gap-1 sm:gap-2">
+                  <a
+                    href="/consult"
+                    className="px-3 py-1.5 sm:px-4 sm:py-2 text-xs sm:text-sm font-medium text-slate-300 hover:text-white hover:bg-slate-800/50 rounded-lg transition-all"
+                  >
+                    Konsultasi
+                  </a>
+                  <a
+                    href="/dashboard"
+                    className="px-3 py-1.5 sm:px-4 sm:py-2 text-xs sm:text-sm font-medium text-slate-300 hover:text-white hover:bg-slate-800/50 rounded-lg transition-all hidden sm:block"
+                  >
+                    Dashboard
+                  </a>
+                  <a
+                    href="/history"
+                    className="px-3 py-1.5 sm:px-4 sm:py-2 text-xs sm:text-sm font-medium text-slate-300 hover:text-white hover:bg-slate-800/50 rounded-lg transition-all"
+                  >
+                    Riwayat
+                  </a>
+                  <a
+                    href="/about"
+                    className="px-3 py-1.5 sm:px-4 sm:py-2 text-xs sm:text-sm font-medium text-slate-300 hover:text-white hover:bg-slate-800/50 rounded-lg transition-all hidden sm:block"
+                  >
+                    Tentang
+                  </a>
+                  <LanguageToggle />
+                  <ThemeToggle />
+                  <UserNav />
+                </div>
               </div>
-            </div>
-          </nav>
-          <main className="pt-16">{children}</main>
-        </AuthProvider>
+            </nav>
+            <main className="pt-16">{children}</main>
+          </AuthProvider>
+        </I18nProvider>
         <ServiceWorkerRegister />
         <SpeedInsights />
       </body>
-    </html>
+    </html >
   );
 }

@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useSession, signIn } from "next-auth/react";
 import ChatInterface from "@/components/chat/ChatInterface";
 import OdontogramSVG from "@/components/odontogram/OdontogramSVG";
+import ClinicReferral from "@/components/ClinicReferral";
 import { useConsultation } from "@/hooks/useConsultation";
 import { generatePDF } from "@/lib/pdf-export";
 import Link from "next/link";
@@ -144,10 +145,10 @@ export default function ConsultPage() {
                     {/* Severity Header — Always visible */}
                     <div
                         className={`rounded-2xl p-6 mb-6 ${result.diagnosis.severityLevel === "high"
-                                ? "severity-bg-high border border-red-500/30"
-                                : result.diagnosis.severityLevel === "medium"
-                                    ? "severity-bg-medium border border-amber-500/30"
-                                    : "severity-bg-low border border-green-500/30"
+                            ? "severity-bg-high border border-red-500/30"
+                            : result.diagnosis.severityLevel === "medium"
+                                ? "severity-bg-medium border border-amber-500/30"
+                                : "severity-bg-low border border-green-500/30"
                             }`}
                     >
                         <div className="flex items-start justify-between mb-3">
@@ -157,10 +158,10 @@ export default function ConsultPage() {
                             </div>
                             <div
                                 className={`px-3 py-1 rounded-full text-xs font-bold ${result.diagnosis.severityLevel === "high"
-                                        ? "bg-red-500/20 text-red-400"
-                                        : result.diagnosis.severityLevel === "medium"
-                                            ? "bg-amber-500/20 text-amber-400"
-                                            : "bg-green-500/20 text-green-400"
+                                    ? "bg-red-500/20 text-red-400"
+                                    : result.diagnosis.severityLevel === "medium"
+                                        ? "bg-amber-500/20 text-amber-400"
+                                        : "bg-green-500/20 text-green-400"
                                     }`}
                             >
                                 {result.diagnosis.severityLevel === "high"
@@ -273,6 +274,9 @@ export default function ConsultPage() {
 
                             {/* Feedback */}
                             <FeedbackSection consultationId={consultationId || ""} />
+
+                            {/* Clinic Referral */}
+                            <ClinicReferral condition={result.diagnosis.conditionNameId} />
                         </div>
                     </div>
 

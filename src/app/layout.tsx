@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { ServiceWorkerRegister } from "@/components/ServiceWorkerRegister";
 import AuthProvider from "@/components/AuthProvider";
+import { SpeedInsights } from '@vercel/speed-insights/next';
 
 export const metadata: Metadata = {
   title: "DentAI — AI Dental Pre-Screening & Smart Odontogram",
@@ -82,6 +83,7 @@ export default function RootLayout({
           <AuthProvider>{children}</AuthProvider>
         </main>
         <ServiceWorkerRegister />
+        <SpeedInsights />
       </body>
     </html>
   );

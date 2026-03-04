@@ -3,6 +3,7 @@ import "./globals.css";
 import { ServiceWorkerRegister } from "@/components/ServiceWorkerRegister";
 import AuthProvider from "@/components/AuthProvider";
 import UserNav from "@/components/UserNav";
+import ThemeToggle from "@/components/ThemeToggle";
 import { SpeedInsights } from '@vercel/speed-insights/next';
 
 export const metadata: Metadata = {
@@ -78,6 +79,7 @@ export default function RootLayout({
                 >
                   Tentang
                 </a>
+                <ThemeToggle />
                 <UserNav />
               </div>
             </div>

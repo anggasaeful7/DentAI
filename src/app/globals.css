@@ -243,3 +243,73 @@ body {
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
+
+/* ==================== LIGHT MODE ==================== */
+.light-mode {
+  --bg-dark: #F8FAFC;
+  --bg-card: #FFFFFF;
+  --bg-surface: #E2E8F0;
+}
+
+.light-mode body {
+  background: #F1F5F9;
+  color: #1E293B;
+}
+
+.light-mode .glass {
+  background: rgba(255, 255, 255, 0.7);
+  border-color: rgba(203, 213, 225, 0.4);
+}
+
+.light-mode .glass-strong {
+  background: rgba(255, 255, 255, 0.85);
+  border-color: rgba(203, 213, 225, 0.5);
+}
+
+.light-mode .gradient-text {
+  background: linear-gradient(135deg, #2563EB, #059669);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Light mode text colors */
+.light-mode .text-slate-200 {
+  color: #334155;
+}
+
+.light-mode .text-slate-300 {
+  color: #475569;
+}
+
+.light-mode .text-slate-400 {
+  color: #64748B;
+}
+
+.light-mode .text-slate-500 {
+  color: #94A3B8;
+}
+
+/* Light mode backgrounds */
+.light-mode .bg-slate-800\/50,
+.light-mode .bg-slate-800\/30,
+.light-mode .bg-slate-800\/80 {
+  background: rgba(241, 245, 249, 0.8);
+}
+
+.light-mode .bg-slate-700\/50 {
+  background: rgba(226, 232, 240, 0.5);
+}
+
+.light-mode .border-slate-700\/50 {
+  border-color: rgba(203, 213, 225, 0.5);
+}
+
+/* Light mode scrollbar */
+.light-mode .scrollbar-thin::-webkit-scrollbar-thumb {
+  background: #CBD5E1;
+}
+
+.light-mode .scrollbar-thin::-webkit-scrollbar-track {
+  background: #F1F5F9;
+}
